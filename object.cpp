@@ -33,6 +33,16 @@ namespace natiflect {
     Object<T>::Object(JNIEnv *env, T val) {
         env_ = env;
         val_ = val;
+        release_ = true;
+        clz_ = env_->GetObjectClass(val_);
+        CheckNotFoundException(env_, "class of the object");
+    }
+
+    template<typename T>
+    Object<T>::Object(JNIEnv *env, T val, bool release) {
+        env_ = env;
+        val_ = val;
+        release_ = release;
         clz_ = env_->GetObjectClass(val_);
         CheckNotFoundException(env_, "class of the object");
     }
@@ -322,6 +332,17 @@ namespace natiflect {
         env_->SetObjectField(val_, field_id, value);
         CheckAccessFieldException(env_, name, sig);
     }
+
+    template<typename T>
+    Object<T>::~Object() {
+        if (env_ != NULL) {
+            if (release_ && val_ != NULL) {
+                env_->DeleteLocalRef(val_);
+                val_ = NULL;
+            }
+        }
+    }
+
 }
 
 #include "object_template_explicit.h"

@@ -28,11 +28,9 @@
 #include <jni.h>
 #include <string>
 
-using namespace std;
-
 namespace natiflect {
 
-    void CheckNotFoundException(JNIEnv *env, string what);
+    void CheckNotFoundException(JNIEnv *env, std::string what);
 
     jmethodID GetMethodID(JNIEnv *env, jclass clz, const char *name, const char *sig, bool is_static = false);
 
@@ -41,6 +39,8 @@ namespace natiflect {
     jfieldID GetFieldID(JNIEnv *env, jclass clz, const char *name, const char *sig, bool is_static = false);
 
     void CheckAccessFieldException(JNIEnv *env, const char *name, const char *sig, bool is_static = false);
+
+    std::string jstringToChars(JNIEnv *env, jstring str);
 }
 
 #endif //NATIFLECT_UTILS_H

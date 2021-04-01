@@ -38,7 +38,11 @@ namespace natiflect {
     public:
         Object(JNIEnv *env, T val);
 
+        Object(JNIEnv *env, T val, bool release);
+
         Object(JNIEnv *env, Class clz, const char *constructor_sig = "()V", ...);
+
+        ~Object();
 
 #pragma mark - Base
 
@@ -118,6 +122,7 @@ namespace natiflect {
         JNIEnv *env_;
         T val_;
         jclass clz_;
+        bool release_;
     };
 }
 

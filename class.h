@@ -36,7 +36,11 @@ namespace natiflect {
     public:
         Class(JNIEnv *env, jclass clz) : Object(env, clz) { };
 
+        Class(JNIEnv *env, jclass clz, bool release) : Object(env, clz, release) { };
+
         Class(JNIEnv *env, const char *name);
+
+        ~Class();
 
         jclass GetJClass() { return GetValue(); };
 

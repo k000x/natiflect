@@ -80,4 +80,11 @@ namespace natiflect {
                                   + name + "\" with signature \"" + sig + "\" failed.");
         }
     }
+
+    std::string jstringToChars(JNIEnv *env, jstring str) {
+        const char *chars = env->GetStringUTFChars(str, NULL);
+        std::string ret(chars);
+        env->ReleaseStringUTFChars(str, chars);
+        return chars;
+    }
 }

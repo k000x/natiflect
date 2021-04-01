@@ -289,4 +289,8 @@ namespace natiflect {
         CheckCallMethodException(env_, "<init>", constructor_sig);
         return result;
     }
+
+    Class::~Class() {
+    }
+
 }
